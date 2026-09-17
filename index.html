@@ -545,7 +545,7 @@ function advanceC(){const el=document.getElementById('ctext');
   ci++;if(ci>=CONFIG.outro.length){document.getElementById('cbox').style.display='none';
     const cw=document.getElementById('cwrap');
     cw.innerHTML=(cur>=LAKES.length-1)
-      ?'<button class="bigbtn ghost" onclick="onReplay()">↺ 다시 해보기</button><a class="bigbtn" href="https://wontheworld.netlify.app/" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;">🗺️ 모험의 지도 펼치기</a><button class="bigbtn" onclick="openTablet()">📜 지혜의 석판 읽기</button>'
+      ?'<button class="bigbtn ghost" style="font-size:22px;padding:13px 20px;" onclick="onReplay()">↺ 다시 해보기</button><a class="bigbtn" style="display:inline-block;text-decoration:none;font-size:22px;padding:13px 20px;" href="https://wontheworld.netlify.app/" target="_blank" rel="noopener">🗺️ 모험의 지도 펼치기</a><a class="bigbtn" style="display:inline-block;text-decoration:none;font-size:22px;padding:13px 20px;" href="https://youtu.be/tKT6FtNPVPo" target="_blank" rel="noopener">📜 지혜의 석판 보기</a>'
       :'<button class="bigbtn ghost" onclick="onReplay()">↺ 다시 해보기</button><button class="bigbtn" onclick="onNext()">➡ 다음 호수</button>';
     cw.style.display='flex';
     document.getElementById('cbustRay').classList.remove('mute');document.getElementById('cbustRumi').classList.remove('mute');return;}renderOutro();}
