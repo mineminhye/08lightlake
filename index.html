@@ -70,7 +70,7 @@ html,body{margin:0; height:100%; background:var(--deep); overflow:hidden; font-f
 .speech .mini{width:74px; height:74px; border-radius:50%; overflow:hidden; flex:0 0 auto; border:3px solid var(--line); background:#0c1c3d;}
 .speech .mini img{width:150%; max-width:none; margin-left:-24%; margin-top:6%;}
 .speech .bubble{background:rgba(16,31,66,.95); border:2px solid var(--line); border-radius:16px; padding:10px 18px; font-family:'Jua'; font-size:22px; line-height:1.4;} .speech .bubble b{color:var(--lamp);}
-svg#board{width:min(560px,94vw); height:auto; display:block; touch-action:none;}
+svg#board,svg#selBoard,svg#rankBoard{width:min(500px,92vw); height:auto; display:block; touch-action:none;}
 #lightHit{cursor:grab;} #lightHit:active{cursor:grabbing;}
 .readout{display:flex; gap:14px; align-items:stretch; margin-top:4px; flex-wrap:wrap; justify-content:center;}
 .chip{background:var(--card); border:2px solid var(--line); border-radius:16px; padding:8px 16px; text-align:center; min-width:120px;}
@@ -556,9 +556,12 @@ function alignLake(){const frame=document.getElementById('frame');
   const svg=document.querySelector('.screen.active svg#board, .screen.active svg#selBoard, .screen.active svg#rankBoard');
   if(!svg){frame.style.backgroundImage='';frame.style.backgroundSize='';frame.style.backgroundPosition='';return;}
   frame.style.backgroundImage="url('"+BG_LAKE+"')";
-  const fr=frame.getBoundingClientRect(),sr=svg.getBoundingClientRect();
-  const sx=sr.left+(310/620)*sr.width-fr.left, sy=sr.top+(295/520)*sr.height-fr.top, sR=(205/620)*sr.width;
-  const cfx=0.5019,cfy=0.4712,rfw=0.3815;
+  const ctm=svg.getScreenCTM(); if(!ctm) return;
+  const pt=svg.createSVGPoint(); pt.x=310;pt.y=295; const c=pt.matrixTransform(ctm);
+  pt.x=515;pt.y=295; const e=pt.matrixTransform(ctm);
+  const fr=frame.getBoundingClientRect();
+  const sx=c.x-fr.left, sy=c.y-fr.top, sR=Math.hypot(e.x-c.x,e.y-c.y);
+  const cfx=0.4940,cfy=0.4750,rfw=0.352;
   const DIW=sR/rfw, DIH=DIW, bgx=sx-cfx*DIW, bgy=sy-cfy*DIH;
   frame.style.backgroundSize=DIW+'px '+DIH+'px';frame.style.backgroundPosition=bgx+'px '+bgy+'px';}
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');requestAnimationFrame(alignLake);}
